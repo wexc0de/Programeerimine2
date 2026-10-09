@@ -11,6 +11,7 @@ namespace KooliProjekt.Application.Data
         public int id { get; set; }
 
         [Required]
+        [StringLength(255)]
         public string title { get; set; }
 
         [Required]
