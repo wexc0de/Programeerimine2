@@ -6,7 +6,7 @@ using System.Text;
 
 namespace KooliProjekt.Application.Data
 {
-    internal class task
+    public class task
     {
         public int id { get; set; }
 

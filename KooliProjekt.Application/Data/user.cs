@@ -5,7 +5,7 @@ using System.Text;
 
 namespace KooliProjekt.Application.Data
 {
-    internal class user
+    public class user
     {
         public int id { get; set; }
 

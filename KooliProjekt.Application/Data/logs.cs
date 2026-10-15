@@ -6,7 +6,7 @@ using System.Text;
 
 namespace KooliProjekt.Application.Data
 {
-    internal class logs
+    public class logs
     {
         public int id { get; set; }
 

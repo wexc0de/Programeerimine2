@@ -10,7 +10,7 @@ namespace KooliProjekt.Application.Data
 {
     [Index(nameof(name), IsUnique = true)]
 
-    internal class project
+    public class project
 
     {
         public int id { get; set;  }
