@@ -9,7 +9,11 @@ namespace KooliProjekt.Application.Data
     {
         public int id { get; set; }
 
-        [Required]
+		[Required]
+		[StringLength(25)]
+		public string name { get; set; }
+
+		[Required]
         [StringLength(100)]
         public string password { get; set; }
 
