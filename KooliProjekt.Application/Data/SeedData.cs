@@ -25,7 +25,7 @@ namespace KooliProjekt.Application.Data
         {
             var users = new List<user>
             {
-                new user Name { User= "user1", PasswordHash = "password1" },
+                new user { UserName = "user1", PasswordHash = "password1" },
                 new user { UserName = "user2", PasswordHash = "password2" }
             };
             context.users.AddRange(users);
