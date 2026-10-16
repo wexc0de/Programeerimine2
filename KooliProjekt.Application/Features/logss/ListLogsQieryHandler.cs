@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using KooliProjekt.Application.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using KooliProjekt.Application.Features.logss;
+using KooliProjekt.Application.Features.logs;
 
 namespace KooliProjekt.Application.Features.logs
 {
