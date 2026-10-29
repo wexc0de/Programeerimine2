@@ -9,11 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LogEntity = KooliProjekt.Application.Data.logs;
 
 namespace KooliProjekt.Application.Features.tasks
 {
-    public class ListTasksQuery : IRequest<IEnumerable<Task<TaskDto>>>
+    public class ListTasksQuery : IRequest<OperationResult<PagedResult<TaskDto>>>
     {
+        public int Page { get; set; }
+        public int PageSize { get; set; }
     }
 }

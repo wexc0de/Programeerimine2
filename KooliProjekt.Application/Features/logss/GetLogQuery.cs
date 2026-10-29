@@ -1,4 +1,4 @@
-﻿using LogEntity = KooliProjekt.Application.Data.logs;
+﻿
 using KooliProjekt.Application.Data;
 using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Results;

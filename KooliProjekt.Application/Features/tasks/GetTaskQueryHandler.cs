@@ -1,6 +1,7 @@
 ﻿using KooliProjekt.Application.Data;
 using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Features.logs;
+using KooliProjekt.Application.Features.projects;
 using KooliProjekt.Application.Infrastructure.Paging;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
@@ -9,24 +10,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LogEntity = KooliProjekt.Application.Data.logs;
 
 namespace KooliProjekt.Application.Features.tasks
 {
-    public class GetTaskQueryHandler : IRequestHandler<GetTaskQuery, Task<TaskDto>>
+    public class GetTaskQueryHandler : IRequestHandler<GetTaskQuery, OperationResult<TaskDto>>
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public GetTaskQueryHandler (ApplicationDbContext dbContext)
+        public GetTaskQueryHandler(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<Task<TaskDto>> Handle(GetTaskQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<TaskDto>> Handle(GetTaskQuery request, CancellationToken cancellationToken)
         {
-            var list = await _dbContext.Tasks.FindAsync(request.Id, cancellationToken);
+            var response = new OperationResult<TaskDto>();
+            response.Value = await _dbContext.Tasks
+                .AsNoTracking()
+                .Where(task => task.id == request.Id)
+                .Select(task => new TaskDto
+                {
+                    id = task.id,
+                    title = task.title,
+                    start = task.start,
+                    estimatedHours = task.estimatedhours,
+                    description = task.description,
+                    IsCompleted =  task.IsCompleted,
+                    FixedPrice = task.FixedPrice
+                })
+                .FirstOrDefaultAsync(cancellationToken);
 
-            return list;
+            return response;
         }
     }
 }

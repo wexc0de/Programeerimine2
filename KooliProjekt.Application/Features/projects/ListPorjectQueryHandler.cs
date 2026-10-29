@@ -9,24 +9,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LogEntity = KooliProjekt.Application.Data.logs;
 
 namespace KooliProjekt.Application.Features.projects
-{
-    public class ListProjectsQueryHandler : IRequestHandler<ListProjectsQuery, IEnumerable<Project<ProjectDto>>>
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public ListProjectsQueryHandler(ApplicationDbContext dbContext)
+        public class ListProjectsQueryHandler : IRequestHandler<ListProjectsQuery, OperationResult<PagedResult<ProjectDto>>>
         {
-            _dbContext = dbContext;
-        }
+            private readonly ApplicationDbContext _dbContext;
 
-        public async Task<IEnumerable<Project<ProjectDto>>> Handle(ListProjectsQuery request, CancellationToken cancellationToken)
-        {
-            var result = await _dbContext.Projects.ToListAsync(cancellationToken);
+            public ListProjectsQueryHandler(ApplicationDbContext dbContext)
+            {
+                _dbContext = dbContext;
+            }
 
-            return result;
+            public async Task<OperationResult<PagedResult<ProjectDto>>> Handle(ListProjectsQuery request, CancellationToken cancellationToken)
+            {
+                var result = new OperationResult<PagedResult<ProjectDto>>();
+                result.Value = await _dbContext.Projects
+                    .AsNoTracking()
+                    .OrderByDescending(project => project.id)
+                    .Select(project => new ProjectDto
+                    {
+                        id = project.id,
+                        name = project.name,
+                        start = project.start,
+                        deadline = project.Deadline,
+                        budget = project.buget
+                    })
+                    .GetPagedAsync(request.Page, request.PageSize);
+
+                return result;
+            }
         }
     }
-}

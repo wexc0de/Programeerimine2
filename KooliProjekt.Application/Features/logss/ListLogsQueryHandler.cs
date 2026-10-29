@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LogEntity = KooliProjekt.Application.Data.logs;
+
 
 namespace KooliProjekt.Application.Features.logs
 {

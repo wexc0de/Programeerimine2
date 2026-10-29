@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using LogEntity = KooliProjekt.Application.Data.logs;
 
 namespace KooliProjekt.Application.Features.projects
 {
@@ -33,7 +32,9 @@ public class GetProjectQueryHandler : IRequestHandler<GetProjectQuery, Operation
             {
                 id = project.id,
                 name = project.name,
-                description = project.description
+                start = project.start,
+                deadline = project.Deadline,
+                budget = project.buget
             })
             .FirstOrDefaultAsync(cancellationToken);
 
