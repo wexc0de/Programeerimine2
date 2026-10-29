@@ -1,13 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using KooliProjekt.Application.Data;
+﻿using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
+using KooliProjekt.Application.Features.logs;
+using KooliProjekt.Application.Infrastructure.Paging;
+using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using LogEntity = KooliProjekt.Application.Data.logs;
 
 namespace KooliProjekt.Application.Features.users
 {
-    public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, IEnumerable<user>>
+    public class ListUsersQueryHandler : IRequestHandler<ListUsersQuery, IEnumerable<User<UserDto>>>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -16,7 +22,7 @@ namespace KooliProjekt.Application.Features.users
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<user>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<User<UserDto>>> Handle(ListUsersQuery request, CancellationToken cancellationToken)
         {
             var result = await _dbContext.Users.ToListAsync(cancellationToken);
 
