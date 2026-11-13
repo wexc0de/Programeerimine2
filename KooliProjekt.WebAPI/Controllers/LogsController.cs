@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using KooliProjekt.Application.Features.logs;
+using KooliProjekt.Application.Features.logss;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,25 @@ namespace KooliProjekt.WebAPI.Controllers
 
             return Result(result);
         }
+
+
+        [HttpPost("save")]
+        public async Task<IActionResult> Save([FromBody] SaveLogsCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Result(result);
+        }
+
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete([FromBody] DeleteLogsCommand command)
+        {
+            var result = await _mediator.Send(command);
+
+            return Result(result);
+        }
+    }
+}
     }
 }
 

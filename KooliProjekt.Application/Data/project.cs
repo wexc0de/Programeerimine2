@@ -13,6 +13,8 @@ namespace KooliProjekt.Application.Data
     public class project
 
     {
+        internal decimal budget;
+
         public int id { get; set;  }
 
         [Required]
